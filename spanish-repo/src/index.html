@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Habla Libre — Learn Spanish free</title>
+<meta name="description" content="Habla Libre: a free, offline-first, Duolingo-style Spanish course that runs in your browser.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="icon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#58cc02">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/path">
+      <span class="brand-owl" aria-hidden="true">🦉</span>
+      <span class="brand-text">Habla<em>Libre</em></span>
+    </a>
+    <div class="hud" id="hud"></div>
+    <nav class="mainnav" id="mainnav">
+      <a href="#/path" data-nav="path" title="Lesson path">📚 <span>Learn</span></a>
+      <a href="#/review" data-nav="review" title="Practice your mistakes">🎧 <span>Review</span></a>
+      <a href="#/chess" data-nav="chess" title="Chess vs the computer">♞ <span>Chess</span></a>
+      <a href="#/reference" data-nav="reference" title="Alphabet, dictionary &amp; verb tables">📖 <span>Reference</span></a>
+      <a href="#/badges" data-nav="badges" title="Achievements">🏅 <span>Badges</span></a>
+      <a href="#/stats" data-nav="stats" title="Stats &amp; settings">📊 <span>Stats</span></a>
+      <a href="#/leaders" data-nav="leaders" title="Global leaderboard">🏆 <span>Board</span></a>
+    </nav>
+  </header>
+
+  <main id="app" class="app"></main>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="modal-root"></div>
+
+  <footer style="text-align:center;font-size:12px;margin:18px 0;color:#8aa;">
+    <a href="privacy.html">Privacy</a>
+  </footer>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <script src="lessons-core.js"></script>
+  <script src="lessons-extras.js"></script>
+  <script src="lessons-travel.js"></script>
+  <script src="lessons-conv.js"></script>
+  <script src="reference-data.js"></script>
+  <script>
+    // Habla Libre cloud config — Firebase web config is public by design.
+    // All security is enforced by Realtime Database rules, not by hiding this.
+    window.HL_FIREBASE = {
+      apiKey: "AIzaSyCSozM_zHJ3DdEcSXFXGAzFWOkSRvi47no",
+      authDomain: "habla-libre.firebaseapp.com",
+      databaseURL: "https://habla-libre-default-rtdb.firebaseio.com",
+      projectId: "habla-libre",
+      storageBucket: "habla-libre.firebasestorage.app",
+      messagingSenderId: "359229703604",
+      appId: "1:359229703604:web:6fba69d178cf2ad0c91ee1"
+    };
+  </script>
+  <script src="chess.js"></script>
+  <script src="chess-ui.js"></script>
+  <script src="app.js"></script>
+  <script src="retention.js"></script>
+  <script>
+    // Offline support: cache the app shell so the installed app starts without network.
+    // Never runs on file:// — only over http(s).
+    if (typeof navigator !== "undefined" && "serviceWorker" in navigator && /^https?:/.test(location.protocol)) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("service-worker.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
